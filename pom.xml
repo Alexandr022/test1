@@ -101,15 +101,15 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.7</version>
-				<configuration>
-					<excludes>
-						<exclude>com/pixelpunch/vaultify/core/repositories/**/*.class</exclude>
-						<exclude>com/pixelpunch/vaultify/core/mapper/**/*.class</exclude>
-						<exclude>com/pixelpunch/vaultify/core/model/**/*.class</exclude>
-						<exclude>com/pixelpunch/vaultify/web/dto/**/*.class</exclude>
-						<exclude>com/pixelpunch/vaultify/core/exceptions/**/*.class</exclude>
-					</excludes>
-				</configuration>
+<!--				<configuration>-->
+<!--					<excludes>-->
+<!--						<exclude>com/pixelpunch/vaultify/core/repositories/**/*.class</exclude>-->
+<!--						<exclude>com/pixelpunch/vaultify/core/mapper/**/*.class</exclude>-->
+<!--						<exclude>com/pixelpunch/vaultify/core/model/**/*.class</exclude>-->
+<!--						<exclude>com/pixelpunch/vaultify/web/dto/**/*.class</exclude>-->
+<!--						<exclude>com/pixelpunch/vaultify/core/exceptions/**/*.class</exclude>-->
+<!--					</excludes>-->
+<!--				</configuration>-->
 				<executions>
 					<execution>
 						<goals>

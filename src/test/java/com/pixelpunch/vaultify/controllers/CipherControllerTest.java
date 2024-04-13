@@ -4,17 +4,16 @@ import com.pixelpunch.vaultify.core.model.Cipher;
 import com.pixelpunch.vaultify.core.service.implementations.CipherService;
 import com.pixelpunch.vaultify.web.controllers.CipherController;
 import com.pixelpunch.vaultify.web.dto.CipherDto;
-import jakarta.validation.Valid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.stubbing.OngoingStubbing;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -117,5 +116,33 @@ class CipherControllerTest {
         assertEquals(cipherList, result.getBody());
     }
 
+    @Test
+    void testCreateCipherBulk() {
+        List<CipherDto> cipherDtoList = Collections.singletonList(new CipherDto());
+        Long userId = 1L;
+
+        doNothing().when(cipherService).createCipherBulk(cipherDtoList, userId);
+
+        ResponseEntity<String> response = cipherController.createCipherBulk(cipherDtoList, userId);
+
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals("Bulk cipher creation successful", response.getBody());
+
+        verify(cipherService, times(1)).createCipherBulk(cipherDtoList, userId);
+    }
+
+    @Test
+    void testUpdateCipherBulk() {
+        List<CipherDto> cipherDtoList = Collections.singletonList(new CipherDto());
+
+        doNothing().when(cipherService).updateCipherBulk(cipherDtoList);
+
+        ResponseEntity<String> response = cipherController.updateCipherBulk(cipherDtoList);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Bulk cipher update successful", response.getBody());
+
+        verify(cipherService, times(1)).updateCipherBulk(cipherDtoList);
+    }
 }
 

@@ -46,18 +46,6 @@ public class UserController {
         return userDTO != null ? new ResponseEntity<>(userDTO, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/users-by-email")
-    public ResponseEntity<List<UserDto>> getUsersByEmailVerified(@RequestParam boolean emailVerified) {
-        log.info("Attempting to fetch users by email verification status: {}", emailVerified);
-
-        List<User> users = userService.getUsersByEmailVerified(emailVerified);
-        List<UserDto> userDtos = UserMapper.usersToDTO(users);
-
-        log.info("Fetched {} users by email verification status: {}", userDtos.size(), emailVerified);
-
-        return new ResponseEntity<>(userDtos, HttpStatus.OK);
-    }
-
     @GetMapping("/public-key")
     public String getPublicKey(@RequestParam Long userId) {
         return userService.getPublicKey(userId);

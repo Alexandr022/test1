@@ -76,12 +76,6 @@ public class UserService implements IUserService {
         userRepository.deleteById(userId);
     }
 
-    @Override
-    public UserDto getUserByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        return user != null ? UserMapper.userToDTO(user) : null;
-    }
-
     public String getPublicKey(Long userId) {
         return userRepository.findPublicKeyById(userId);
     }
@@ -89,11 +83,6 @@ public class UserService implements IUserService {
     @Override
     public void deleteUnverifiedUsers(Date date) {
         userRepository.deleteUnverifiedUsers(date);
-    }
-
-    @Override
-    public List<User> getUsersByEmailVerified(boolean emailVerified) {
-        return userRepository.findByEmailVerifiedCustomQuery(emailVerified);
     }
 
 }

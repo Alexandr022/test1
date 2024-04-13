@@ -17,10 +17,6 @@ public interface IUserService {
 
     void deleteUser(Long userId);
 
-    UserDto getUserByEmail(String email);
-
     void deleteUnverifiedUsers(Date date);
-
-    List<User> getUsersByEmailVerified(boolean emailVerified);
 }
 

@@ -52,12 +52,5 @@ class UserServiceTest {
         verify(userRepository).deleteUnverifiedUsers(null);
     }
 
-    @Test
-    void testGetUsersByEmailVerified() {
-        List<User> users = Collections.singletonList(new User());
-        when(userRepository.findByEmailVerifiedCustomQuery(true)).thenReturn(users);
-        List<User> result = userService.getUsersByEmailVerified(true);
-        assertEquals(users, result);
-    }
 }
 

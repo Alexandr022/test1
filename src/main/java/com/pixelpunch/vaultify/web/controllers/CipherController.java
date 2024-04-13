@@ -32,13 +32,8 @@ public class CipherController {
     @PostMapping("/{userId}")
     public ResponseEntity<String> createCipher(@Valid @RequestBody CipherDto cipherRequestDTO,
                                                @PathVariable Long userId) {
-        try {
             ResponseEntity<String> response = cipherService.createCipher(cipherRequestDTO, userId);
             return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     @PutMapping("/{cipherId}")
@@ -61,24 +56,14 @@ public class CipherController {
     @PostMapping("/bulk-create/{userId}")
     public ResponseEntity<String> createCipherBulk(@RequestBody List<CipherDto> cipherDtoList,
                                                    @PathVariable Long userId) {
-        try {
             cipherService.createCipherBulk(cipherDtoList, userId);
             return ResponseEntity.status(HttpStatus.CREATED).body("Bulk cipher creation successful");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     @PostMapping("/bulk-update")
     public ResponseEntity<String> updateCipherBulk(@RequestBody List<CipherDto> cipherDtoList) {
-        try {
             cipherService.updateCipherBulk(cipherDtoList);
             return ResponseEntity.status(HttpStatus.OK).body("Bulk cipher update successful");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
     }
 
 }
