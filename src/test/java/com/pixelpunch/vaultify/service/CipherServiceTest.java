@@ -1,24 +1,24 @@
 package com.pixelpunch.vaultify.service;
 
-import com.pixelpunch.vaultify.core.model.Cipher;
+import com.pixelpunch.vaultify.core.mapper.UserMapper;
 import com.pixelpunch.vaultify.core.model.User;
 import com.pixelpunch.vaultify.core.repositories.CipherRepository;
 import com.pixelpunch.vaultify.core.repositories.UserRepository;
+import com.pixelpunch.vaultify.core.service.IUserService;
 import com.pixelpunch.vaultify.core.service.implementations.CipherService;
-import com.pixelpunch.vaultify.core.utils.RSAEncryption;
-import com.pixelpunch.vaultify.web.dto.CipherDto;
+import com.pixelpunch.vaultify.core.service.implementations.UserService;
+import com.pixelpunch.vaultify.web.dto.UserDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,113 +29,87 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CipherServiceTest {
-
-    @Mock
-    private CipherRepository cipherRepository;
+class UserServiceTest {
 
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private KeyPairGenerator keyPairGenerator;
+
     @InjectMocks
-    private CipherService cipherService;
+    private UserService userService;
 
     @Test
-    void testGetCipherById_CipherNotFound() {
+    void testGetUserById_UserNotFound() {
         // Setup
-        when(cipherRepository.findById(anyLong())).thenReturn(Optional.empty());
+        Long userId = 1L;
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
         // Test
-        ResponseEntity<Cipher> response = cipherService.getCipherById(1L);
+        UserDto result = userService.getUserById(userId);
 
         // Verify
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertNull(response.getBody());
+        assertNull(result);
+        verify(userRepository, times(1)).findById(userId); // Verify that findById method is called once
     }
 
+
     @Test
-    void testGetCipherById_PrivateKeyNotFound() {
+    void testGetAllUsers() {
         // Setup
-        Cipher cipher = new Cipher();
-        cipher.setId(1L);
-        cipher.setOwner(new User());
-        when(cipherRepository.findById(anyLong())).thenReturn(Optional.of(cipher));
-        when(userRepository.findPrivateKeyByUserId(anyLong())).thenReturn(null);
+        List<User> users = new ArrayList<>();
+        users.add(new User());
+        users.add(new User());
+        when(userRepository.findAll()).thenReturn(users);
 
         // Test
-        ResponseEntity<Cipher> response = cipherService.getCipherById(1L);
+        List<UserDto> result = userService.getAllUsers();
 
         // Verify
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertNull(response.getBody());
+        assertEquals(users.size(), result.size());
     }
 
     @Test
-    void testCreateCipher_CipherDtoNull() {
-        // Test
-        ResponseEntity<String> response = cipherService.createCipher(null, 1L);
-
-        // Verify
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Cipher data cannot be null", response.getBody());
-    }
-
-    @Test
-    void testUpdateCipher_CipherNotFound() {
+    void testUpdateUser() {
         // Setup
-        when(cipherRepository.findById(anyLong())).thenReturn(Optional.empty());
+        UserDto userDto = new UserDto();
+        userDto.setId(1L);
+        User user = new User();
+        user.setId(userDto.getId());
+        when(userRepository.save(any(User.class))).thenReturn(user);
 
         // Test
-        ResponseEntity<CipherDto> response = cipherService.updateCipher(1L, new CipherDto());
+        UserDto result = userService.updateUser(userDto);
 
         // Verify
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertNull(response.getBody());
-    }
-
-    // Другие тесты для метода updateCipher
-
-    @Test
-    void testDeleteCipher_CipherNotFound() {
-        // Setup
-        when(cipherRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-        // Test
-        ResponseEntity<Void> response = cipherService.deleteCipher(1L);
-
-        // Verify
-        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
-        assertNull(response.getBody());
-    }
-
-
-    @Test
-    void testGetAllCiphers() {
-        // Setup
-        List<Cipher> cipherList = new ArrayList<>();
-        cipherList.add(new Cipher());
-        when(cipherRepository.findAll()).thenReturn(cipherList);
-
-        // Test
-        List<Cipher> result = cipherService.getAllCiphers();
-
-        // Verify
-        assertEquals(cipherList.size(), result.size());
+        assertNotNull(result);
+        assertEquals(userDto.getId(), result.getId());
     }
 
     @Test
-    void testGetCiphersByOwnerId() {
-        // Setup
-        List<Cipher> cipherList = new ArrayList<>();
-        cipherList.add(new Cipher());
-        when(cipherRepository.findByOwnerId(anyLong())).thenReturn(cipherList);
-
+    void testDeleteUser() {
         // Test
-        List<Cipher> result = cipherService.getCiphersByOwnerId(1L);
+        userService.deleteUser(1L);
 
         // Verify
-        assertEquals(cipherList.size(), result.size());
+        verify(userRepository, times(1)).deleteById(1L);
     }
 
+    @Test
+    void testGetPublicKey() {
+        // Setup
+        when(userRepository.findPublicKeyById(anyLong())).thenReturn("publicKey");
+
+        // Test
+        String result = userService.getPublicKey(1L);
+
+        // Verify
+        assertNotNull(result);
+        assertEquals("publicKey", result);
+    }
 }
 
