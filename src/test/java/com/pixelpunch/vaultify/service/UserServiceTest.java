@@ -13,12 +13,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,6 +74,65 @@ class UserServiceTest {
 
         // Verify
         assertEquals(users.size(), result.size());
+    }
+
+    @Test
+    void testCreateUser_Success() throws Exception {
+        // Setup
+        UserDto createUserRequest = new UserDto();
+        createUserRequest.setEmail("test@example.com");
+        createUserRequest.setPassword("password123");
+        createUserRequest.setPasswordHint("hint");
+
+        // Создаем действительный KeyPair
+        KeyPair keyPair = KeyPairGenerator.getInstance("RSA").generateKeyPair();
+
+        PublicKey publicKey = keyPair.getPublic();
+        PrivateKey privateKey = keyPair.getPrivate();
+
+        // Мокируем keyPairGenerator, чтобы он возвращал действительный keyPair
+        when(keyPairGenerator.generateKeyPair()).thenReturn(keyPair);
+
+        String hashedPassword = "hashedPassword123"; // предположим, что это захешированный пароль
+
+        User savedUser = new User();
+        savedUser.setId(1L);
+        savedUser.setEmail(createUserRequest.getEmail());
+        savedUser.setPassword(hashedPassword); // Используем захешированный пароль
+        savedUser.setPasswordHint(createUserRequest.getPasswordHint());
+
+        when(passwordEncoder.encode(createUserRequest.getPassword())).thenReturn(hashedPassword); // Захешированный пароль
+        when(userRepository.save(any(User.class))).thenReturn(savedUser);
+
+        // Test
+        UserDto result = userService.createUser(createUserRequest);
+
+        // Verify
+        assertNotNull(result, "UserDto is null");
+
+        assertEquals(savedUser.getId(), result.getId());
+        assertEquals(savedUser.getEmail(), result.getEmail());
+        assertEquals(savedUser.getPassword(), result.getPassword());
+        assertEquals(savedUser.getPasswordHint(), result.getPasswordHint());
+    }
+
+
+    @Test
+    void testCreateUser_KeyPairGenerationFailure() {
+        // Setup
+        UserDto createUserRequest = new UserDto();
+        createUserRequest.setEmail("test@example.com");
+        createUserRequest.setPassword("password123");
+        createUserRequest.setPasswordHint("hint");
+
+        KeyPair keyPair = Mockito.mock(KeyPair.class);
+        when(keyPairGenerator.generateKeyPair()).thenReturn(keyPair);
+
+        // Test
+        UserDto result = userService.createUser(createUserRequest);
+
+        // Verify
+        assertNull(result, "UserDto should be null");
     }
 
     @Test
