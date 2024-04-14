@@ -26,7 +26,7 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<Cipher> getCipherById(Long cipherId) {
+    public ResponseEntity<Cipher> getCipherById(Long cipherId) throw Excwption {
         Cipher cipher = cipherRepository.findById(cipherId).orElse(null);
             String privateKeyString = userRepository.findPrivateKeyByUserId(cipher.getOwner().getId());
     
@@ -40,7 +40,7 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     }
 
     @Override
-    public ResponseEntity<String> createCipher(CipherDto cipherDto, Long userId) {
+    public ResponseEntity<String> createCipher(CipherDto cipherDto, Long userId) throw Excwption{
         User user = userRepository.findUserById(userId);
 
         String publicKeyString = userRepository.findPublicKeyById(userId);
@@ -70,7 +70,7 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     }
 
     @Override
-    public ResponseEntity<CipherDto> updateCipher(Long cipherId, CipherDto updatedCipherDTO) {
+    public ResponseEntity<CipherDto> updateCipher(Long cipherId, CipherDto updatedCipherDTO) throw Excwption {
         Cipher existingCipher = cipherRepository.findById(cipherId).orElse(null);
       
             Long userId = existingCipher.getOwner().getId();
@@ -93,7 +93,7 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     }
 
     @Override
-    public ResponseEntity<Void> deleteCipher(Long cipherId) {
+    public ResponseEntity<Void> deleteCipher(Long cipherId) throw Excwption {
         Cipher cipher = cipherRepository.findById(cipherId).orElse(null);
         
         cipherRepository.delete(cipher);
