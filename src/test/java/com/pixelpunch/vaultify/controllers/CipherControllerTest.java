@@ -47,7 +47,7 @@ class CipherControllerTest {
     }
 
     @Test
-    void testGetCipherById() {
+    void testGetCipherById() throws Exception {
         // Arrange
         Long cipherId = 1L;
         Cipher cipher = new Cipher();
@@ -61,7 +61,7 @@ class CipherControllerTest {
     }
 
     @Test
-    void testCreateCipher() {
+    void testCreateCipher() throws Exception {
         // Arrange
         CipherDto cipherDto = new CipherDto();
         Long userId = 1L;
