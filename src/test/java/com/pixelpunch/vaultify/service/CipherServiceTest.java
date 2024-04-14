@@ -9,6 +9,7 @@ import com.pixelpunch.vaultify.core.utils.RSAEncryption;
 import com.pixelpunch.vaultify.web.dto.CipherDto;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
