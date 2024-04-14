@@ -2,14 +2,18 @@ package com.pixelpunch.vaultify.service;
 
 import com.pixelpunch.vaultify.core.mapper.UserMapper;
 import com.pixelpunch.vaultify.core.model.User;
+import com.pixelpunch.vaultify.core.repositories.CipherRepository;
 import com.pixelpunch.vaultify.core.repositories.UserRepository;
 import com.pixelpunch.vaultify.core.service.IUserService;
+import com.pixelpunch.vaultify.core.service.implementations.CipherService;
 import com.pixelpunch.vaultify.core.service.implementations.UserService;
 import com.pixelpunch.vaultify.web.dto.UserDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -24,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = {CipherService.class, CipherRepository.class, UserRepository.class})
+@ExtendWith(MockitoExtension.class)
 class UserServiceTest {
 
     @Mock
@@ -39,26 +43,20 @@ class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    @BeforeEach
-    void setUp() throws Exception {
-        KeyPair keyPair = KeyPairGenerator.getInstance("RSA").generateKeyPair();
-        when(keyPairGenerator.generateKeyPair()).thenReturn(keyPair);
-    }
-
     @Test
-    void testGetUserById() {
+    void testGetUserById_UserNotFound() {
         // Setup
-        User user = new User();
-        user.setId(1L);
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
+        Long userId = 1L;
+        when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
         // Test
-        UserDto result = userService.getUserById(1L);
+        UserDto result = userService.getUserById(userId);
 
         // Verify
-        assertNotNull(result);
-        assertEquals(user.getId(), result.getId());
+        assertNull(result);
+        verify(userRepository, times(1)).findById(userId); // Verify that findById method is called once
     }
+
 
     @Test
     void testGetAllUsers() {

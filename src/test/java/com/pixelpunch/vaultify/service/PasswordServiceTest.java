@@ -9,19 +9,21 @@ import com.pixelpunch.vaultify.core.service.IPasswordGeneratorService;
 import com.pixelpunch.vaultify.core.service.implementations.PasswordService;
 import com.pixelpunch.vaultify.web.dto.PasswordDto;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = {CipherService.class, CipherRepository.class, UserRepository.class})
+@ExtendWith(MockitoExtension.class)
 class PasswordServiceTest {
 
     @Mock

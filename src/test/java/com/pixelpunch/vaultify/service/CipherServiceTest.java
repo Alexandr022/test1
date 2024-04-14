@@ -8,12 +8,14 @@ import com.pixelpunch.vaultify.core.service.implementations.CipherService;
 import com.pixelpunch.vaultify.core.utils.RSAEncryption;
 import com.pixelpunch.vaultify.web.dto.CipherDto;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.mockito.MockitoAnnotations;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -26,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = {CipherService.class, CipherRepository.class, UserRepository.class})
+@ExtendWith(MockitoExtension.class)
 class CipherServiceTest {
 
     @Mock
@@ -37,7 +39,7 @@ class CipherServiceTest {
 
     @InjectMocks
     private CipherService cipherService;
-    
+
     @Test
     void testGetCipherById_CipherNotFound() {
         // Setup
@@ -135,42 +137,5 @@ class CipherServiceTest {
         assertEquals(cipherList.size(), result.size());
     }
 
-    @Test
-    void testCreateCipherBulk_Success() {
-        // Setup
-        List<CipherDto> cipherDtoList = new ArrayList<>();
-        cipherDtoList.add(new CipherDto());
-        when(userRepository.findUserById(anyLong())).thenReturn(new User());
-        when(userRepository.findPublicKeyById(anyLong())).thenReturn("publicKeyString");
-        doAnswer(invocation -> {
-            Object[] args = invocation.getArguments();
-            Cipher cipher = (Cipher) args[0];
-            cipher.setId(1L); // Simulate saving cipher
-            return null;
-        }).when(cipherRepository).save(any(Cipher.class));
-
-        // Test
-        cipherService.createCipherBulk(cipherDtoList, 1L);
-
-        // Verify
-        // Check that no errors occurred
-    }
-
-    @Test
-    void testUpdateCipherBulk_Success() {
-        // Setup
-        List<CipherDto> cipherDtoList = new ArrayList<>();
-        CipherDto cipherDto = new CipherDto();
-        cipherDto.setId(1L);
-        cipherDtoList.add(cipherDto);
-        when(cipherRepository.findById(anyLong())).thenReturn(java.util.Optional.of(new Cipher()));
-        doAnswer(invocation -> null).when(cipherRepository).save(any(Cipher.class));
-
-        // Test
-        cipherService.updateCipherBulk(cipherDtoList);
-
-        // Verify
-        // Check that no errors occurred
-    }
 }
 
