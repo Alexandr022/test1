@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@SpringBootTest(classes = {CipherService.class, CipherRepository.class, UserRepository.class})
 class CipherServiceTest {
 
     @Mock
@@ -37,10 +37,6 @@ class CipherServiceTest {
 
     @InjectMocks
     private CipherService cipherService;
-
-    public CipherServiceTest() {
-        MockitoAnnotations.initMocks(this);
-    }
     
     @Test
     void testGetCipherById_CipherNotFound() {
