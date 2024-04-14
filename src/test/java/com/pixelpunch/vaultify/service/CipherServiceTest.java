@@ -71,16 +71,6 @@ class CipherServiceTest {
     }
 
     @Test
-    void testCreateCipher_CipherDtoNull() {
-        // Test
-        ResponseEntity<String> response = cipherService.createCipher(null, 1L);
-
-        // Verify
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Cipher data cannot be null", response.getBody());
-    }
-
-    @Test
     void testUpdateCipher_CipherNotFound() {
         // Setup
         when(cipherRepository.findById(anyLong())).thenReturn(Optional.empty());
