@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.pixelpunch.vaultify.core.service.implementations.PasswordGeneratorService;
 import org.junit.jupiter.api.Test;
 
+@SpringBootTest
 class PasswordGeneratorServiceTest {
     @Test
      void testGeneratePassword() {
