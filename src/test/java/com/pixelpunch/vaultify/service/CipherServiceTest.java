@@ -23,6 +23,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class CipherServiceTest {
@@ -104,7 +105,6 @@ class CipherServiceTest {
         assertNull(response.getBody());
     }
 
-    // Другие тесты для метода deleteCipher
 
     @Test
     void testGetAllCiphers() {

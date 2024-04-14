@@ -2867,3 +2867,139 @@ org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /test.
 2024-04-14T03:11:01.683+03:00  INFO 23458 --- [Vaultify] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-04-14T03:11:01.685+03:00  INFO 23458 --- [Vaultify] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2024-04-14T03:11:01.690+03:00  INFO 23458 --- [Vaultify] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-04-14T03:15:46.883+03:00  INFO 6525 --- [Vaultify] [main] c.p.v.service.PasswordServiceTest        : Starting PasswordServiceTest using Java 21.0.2 with PID 6525 (started by axlln in /home/axlln/Программирование/Vaultify-Server)
+2024-04-14T03:15:46.884+03:00  INFO 6525 --- [Vaultify] [main] c.p.v.service.PasswordServiceTest        : No active profile set, falling back to 1 default profile: "default"
+2024-04-14T03:15:47.463+03:00  INFO 6525 --- [Vaultify] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-14T03:15:47.515+03:00  INFO 6525 --- [Vaultify] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 3 JPA repository interfaces.
+2024-04-14T03:15:47.766+03:00  WARN 6525 --- [Vaultify] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-04-14T03:15:47.789+03:00  INFO 6525 --- [Vaultify] [main] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-04-14T03:15:47.999+03:00  INFO 6525 --- [Vaultify] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-14T03:15:48.035+03:00  INFO 6525 --- [Vaultify] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-04-14T03:15:48.059+03:00  INFO 6525 --- [Vaultify] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-04-14T03:15:48.226+03:00  INFO 6525 --- [Vaultify] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-14T03:15:48.248+03:00  INFO 6525 --- [Vaultify] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-04-14T03:15:48.358+03:00  INFO 6525 --- [Vaultify] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@2e8b24a1
+2024-04-14T03:15:48.360+03:00  INFO 6525 --- [Vaultify] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-04-14T03:15:49.061+03:00  INFO 6525 --- [Vaultify] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-14T03:15:49.106+03:00  INFO 6525 --- [Vaultify] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-14T03:15:49.434+03:00  INFO 6525 --- [Vaultify] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-04-14T03:15:49.824+03:00  WARN 6525 --- [Vaultify] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-14T03:15:49.850+03:00  WARN 6525 --- [Vaultify] [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 2282eedb-1807-497b-be20-be20320d2d45
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-04-14T03:15:50.155+03:00  INFO 6525 --- [Vaultify] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@492d0748, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6a4ba6f4, org.springframework.security.web.context.SecurityContextHolderFilter@650929dc, org.springframework.security.web.header.HeaderWriterFilter@260af8f7, org.springframework.web.filter.CorsFilter@3e0eb917, org.springframework.security.web.authentication.logout.LogoutFilter@26acbc9d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@781befe7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@69780093, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@589dac96, org.springframework.security.web.access.ExceptionTranslationFilter@2e1c3b8f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4487dce]
+2024-04-14T03:15:50.541+03:00  INFO 6525 --- [Vaultify] [main] c.p.v.service.PasswordServiceTest        : Started PasswordServiceTest in 3.88 seconds (process running for 4.57)
+2024-04-14T03:15:51.203+03:00  INFO 6525 --- [Vaultify] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-14T03:15:51.206+03:00  INFO 6525 --- [Vaultify] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-04-14T03:15:51.210+03:00  INFO 6525 --- [Vaultify] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-04-14T23:16:26.882+03:00  INFO 577 --- [Vaultify] [main] c.p.vaultify.service.CipherServiceTest   : Starting CipherServiceTest using Java 21.0.2 with PID 577 (started by axlln in /home/axlln/Программирование/Vaultify-Server)
+2024-04-14T23:16:26.884+03:00  INFO 577 --- [Vaultify] [main] c.p.vaultify.service.CipherServiceTest   : No active profile set, falling back to 1 default profile: "default"
+2024-04-14T23:16:27.471+03:00  INFO 577 --- [Vaultify] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-14T23:16:27.517+03:00  INFO 577 --- [Vaultify] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41 ms. Found 3 JPA repository interfaces.
+2024-04-14T23:16:27.784+03:00  WARN 577 --- [Vaultify] [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.ws.config.annotation.DelegatingWsConfiguration' of type [org.springframework.ws.config.annotation.DelegatingWsConfiguration$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [annotationActionEndpointMapping] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2024-04-14T23:16:27.811+03:00  INFO 577 --- [Vaultify] [main] .w.s.a.s.AnnotationActionEndpointMapping : Supporting [WS-Addressing August 2004, WS-Addressing 1.0]
+2024-04-14T23:16:27.986+03:00  INFO 577 --- [Vaultify] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-14T23:16:28.032+03:00  INFO 577 --- [Vaultify] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-04-14T23:16:28.057+03:00  INFO 577 --- [Vaultify] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-04-14T23:16:28.227+03:00  INFO 577 --- [Vaultify] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-14T23:16:28.245+03:00  INFO 577 --- [Vaultify] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-04-14T23:16:28.361+03:00  INFO 577 --- [Vaultify] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e517c9e
+2024-04-14T23:16:28.363+03:00  INFO 577 --- [Vaultify] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-04-14T23:16:29.093+03:00  INFO 577 --- [Vaultify] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-14T23:16:29.146+03:00  INFO 577 --- [Vaultify] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-14T23:16:29.503+03:00  INFO 577 --- [Vaultify] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-04-14T23:16:29.946+03:00  WARN 577 --- [Vaultify] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-14T23:16:29.977+03:00  WARN 577 --- [Vaultify] [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f4fe62c1-f0b6-462a-bbcf-df63394df69a
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2024-04-14T23:16:30.262+03:00  INFO 577 --- [Vaultify] [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1bd97254, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@388a6656, org.springframework.security.web.context.SecurityContextHolderFilter@41f274d, org.springframework.security.web.header.HeaderWriterFilter@2e1c3b8f, org.springframework.web.filter.CorsFilter@32b19d03, org.springframework.security.web.authentication.logout.LogoutFilter@26f50a28, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@67fdc1e9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@33a38f07, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3f8090db, org.springframework.security.web.access.ExceptionTranslationFilter@21298c3a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7655dc27]
+2024-04-14T23:16:30.646+03:00  INFO 577 --- [Vaultify] [main] c.p.vaultify.service.CipherServiceTest   : Started CipherServiceTest in 3.997 seconds (process running for 4.745)
+2024-04-14T23:16:31.252+03:00 ERROR 577 --- [Vaultify] [main] c.p.v.c.s.implementations.CipherService  : Error updating cipher
+
+java.lang.NullPointerException: Cannot invoke "com.pixelpunch.vaultify.core.model.User.getId()" because the return value of "com.pixelpunch.vaultify.core.model.Cipher.getOwner()" is null
+	at com.pixelpunch.vaultify.core.service.implementations.CipherService.updateCipher(CipherService.java:117) ~[classes/:na]
+	at com.pixelpunch.vaultify.core.service.implementations.CipherService.lambda$updateCipherBulk$1(CipherService.java:176) ~[classes/:na]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at com.pixelpunch.vaultify.core.service.implementations.CipherService.updateCipherBulk(CipherService.java:172) ~[classes/:na]
+	at com.pixelpunch.vaultify.service.CipherServiceTest.testUpdateCipherBulk_Success(CipherServiceTest.java:169) ~[test-classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728) ~[junit-platform-commons-1.10.2.jar:1.10.2]
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69) ~[junit-jupiter-engine-5.10.2.jar:5.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596) ~[na:na]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54) ~[junit-platform-engine-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63) ~[junit-platform-launcher-1.10.2.jar:1.10.2]
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57) ~[junit5-rt.jar:na]
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38) ~[junit-rt.jar:na]
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11) ~[idea_rt.jar:na]
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35) ~[junit-rt.jar:na]
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232) ~[junit-rt.jar:na]
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55) ~[junit-rt.jar:na]
+
+2024-04-14T23:16:31.285+03:00  INFO 577 --- [Vaultify] [main] c.p.v.c.s.implementations.CipherService  : User ID: 1
+2024-04-14T23:16:31.285+03:00  INFO 577 --- [Vaultify] [main] c.p.v.c.s.implementations.CipherService  : Encrypted Account Data: null
+2024-04-14T23:16:31.304+03:00 ERROR 577 --- [Vaultify] [main] c.p.v.c.s.implementations.CipherService  : Private key not found for user null
+2024-04-14T23:16:31.327+03:00  INFO 577 --- [Vaultify] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-04-14T23:16:31.329+03:00  INFO 577 --- [Vaultify] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-04-14T23:16:31.335+03:00  INFO 577 --- [Vaultify] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
