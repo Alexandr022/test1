@@ -3,8 +3,6 @@ package com.pixelpunch.vaultify.web.controllers;
 import com.pixelpunch.vaultify.core.cache.InMemoryCache;
 import com.pixelpunch.vaultify.web.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
-import com.pixelpunch.vaultify.core.mapper.UserMapper;
-import com.pixelpunch.vaultify.core.model.User;
 import com.pixelpunch.vaultify.core.service.implementations.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -69,13 +67,7 @@ public class UserController {
         userDTO.setId(userId);
         UserDto updatedUserDto = userService.updateUser(userDTO);
 
-        if (updatedUserDto != null) {
-            log.info("Updated user with ID: {}", userId);
-        } else {
-            log.info("Failed to update user with ID: {}", userId);
-        }
-
-        return updatedUserDto != null ? new ResponseEntity<>(updatedUserDto, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(updatedUserDto, HttpStatus.OK);
     }
 
     @DeleteMapping("/{userId}")

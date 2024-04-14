@@ -1,28 +1,27 @@
 package com.pixelpunch.vaultify.service;
 
-import com.pixelpunch.vaultify.core.service.implementations.PasswordService;
 import com.pixelpunch.vaultify.core.mapper.PasswordMapper;
 import com.pixelpunch.vaultify.core.model.Password;
 import com.pixelpunch.vaultify.core.model.User;
 import com.pixelpunch.vaultify.core.repositories.PasswordRepository;
 import com.pixelpunch.vaultify.core.repositories.UserRepository;
 import com.pixelpunch.vaultify.core.service.IPasswordGeneratorService;
+import com.pixelpunch.vaultify.core.service.implementations.PasswordService;
 import com.pixelpunch.vaultify.web.dto.PasswordDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class PasswordServiceTest {
 
     @Mock
@@ -32,36 +31,89 @@ class PasswordServiceTest {
     private UserRepository userRepository;
 
     @Mock
-    private PasswordMapper passwordMapper;
-
-    @Mock
     private IPasswordGeneratorService passwordGeneratorService;
 
     @InjectMocks
     private PasswordService passwordService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Test
+    void testGetAllPasswords() {
+        // Setup
+        List<Password> passwords = List.of(new Password(), new Password());
+        when(passwordRepository.findAll()).thenReturn(passwords);
+
+        // Test
+        List<Password> result = passwordService.getAllPasswords();
+
+        // Verify
+        assertEquals(passwords.size(), result.size());
     }
 
     @Test
-    void testGetAllPasswords() {
-        List<Password> passwords = new ArrayList<>();
-        when(passwordRepository.findAll()).thenReturn(passwords);
+    void testCreatePassword() {
+        // Setup
+        PasswordDto passwordDto = new PasswordDto();
+        passwordDto.setLength(8);
+        passwordDto.setIncludeUppercase(true);
+        passwordDto.setIncludeNumbers(true);
+        passwordDto.setIncludeSpecial(true);
+        User user = new User();
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
+        when(passwordGeneratorService.generatePassword(anyInt(), anyBoolean(), anyBoolean(), anyBoolean())).thenReturn("TestPassword");
+        Password expectedPassword = PasswordMapper.dtoToPasswords(passwordDto);
+        expectedPassword.setOwner(user);
+        Date date = new Date();
+        expectedPassword.setGeneratedTime(date);
+        when(passwordRepository.save(any(Password.class))).thenReturn(expectedPassword);
 
-        List<Password> result = passwordService.getAllPasswords();
+        // Test
+        PasswordDto result = passwordService.createPassword(1L, passwordDto);
 
-        assertEquals(passwords, result);
+        // Verify
+        assertNotNull(result);
+        assertEquals(expectedPassword.getPasswords(), result.getPassword());
+        assertEquals(expectedPassword.getOwner(), user);
+        assertEquals(expectedPassword.getGeneratedTime(), date);
+    }
+
+    @Test
+    void testGetPasswordById() {
+        // Setup
+        Password password = new Password();
+        when(passwordRepository.findById(anyLong())).thenReturn(Optional.of(password));
+
+        // Test
+        PasswordDto result = passwordService.getPasswordById(1L);
+
+        // Verify
+        assertNotNull(result);
+        assertEquals(password.getPasswords(), result.getPassword());
+    }
+
+    @Test
+    void testUpdatePassword() {
+        // Setup
+        PasswordDto updatedPasswordDto = new PasswordDto();
+        updatedPasswordDto.setPassword("UpdatedPassword");
+        Password existingPassword = new Password();
+        when(passwordRepository.findById(anyLong())).thenReturn(Optional.of(existingPassword));
+        when(passwordRepository.save(any(Password.class))).thenReturn(existingPassword);
+
+        // Test
+        PasswordDto result = passwordService.updatePassword(1L, updatedPasswordDto);
+
+        // Verify
+        assertNotNull(result);
+        assertEquals(updatedPasswordDto.getPassword(), result.getPassword());
     }
 
     @Test
     void testDeletePassword() {
-        Long id = 1L;
+        // Test
+        passwordService.deletePassword(1L);
 
-        passwordService.deletePassword(id);
-
-        verify(passwordRepository, times(1)).deleteById(id);
+        // Verify
+        verify(passwordRepository, times(1)).deleteById(1L);
     }
 }
 
