@@ -37,6 +37,10 @@ class CipherServiceTest {
     @InjectMocks
     private CipherService cipherService;
 
+    public CipherServiceTest() {
+        MockitoAnnotations.initMocks(this);
+    }
+    
     @Test
     void testGetCipherById_CipherNotFound() {
         // Setup
