@@ -25,20 +25,20 @@ public class CipherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cipher> getCipherById(@PathVariable Long id) {
+    public ResponseEntity<Cipher> getCipherById(@PathVariable Long id) throws Exception {
         return cipherService.getCipherById(id);
     }
 
     @PostMapping("/{userId}")
     public ResponseEntity<String> createCipher(@Valid @RequestBody CipherDto cipherRequestDTO,
-                                               @PathVariable Long userId) {
+                                               @PathVariable Long userId) throws Exception {
             ResponseEntity<String> response = cipherService.createCipher(cipherRequestDTO, userId);
             return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 
     @PutMapping("/{cipherId}")
     public ResponseEntity<CipherDto> updateCipher(@PathVariable Long cipherId,
-                                                  @RequestBody CipherDto updatedCipherDto) {
+                                                  @RequestBody CipherDto updatedCipherDto) throws Exception {
         return cipherService.updateCipher(cipherId, updatedCipherDto);
     }
 
