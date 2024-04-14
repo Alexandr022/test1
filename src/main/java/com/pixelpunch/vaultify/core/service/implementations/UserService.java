@@ -44,21 +44,20 @@ public class UserService implements IUserService {
         user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
         user.setPasswordHint(createUserRequest.getPasswordHint());
 
-        try {
-            keyPairGenerator.initialize(1024);
-            KeyPair keyPair = keyPairGenerator.generateKeyPair();
-            PublicKey publicKey = keyPair.getPublic();
-            PrivateKey privateKey = keyPair.getPrivate();
+        keyPairGenerator.initialize(1024);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
+        PublicKey publicKey = keyPair.getPublic();
+        PrivateKey privateKey = keyPair.getPrivate();
 
-            String publicKeyString = Base64.getEncoder().encodeToString(publicKey.getEncoded());
-            String privateKeyString = Base64.getEncoder().encodeToString(privateKey.getEncoded());
-
-            user.setPublicKey(publicKeyString);
-            user.setPrivateKey(privateKeyString);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (publicKey == null || privateKey == null) {
             return null;
         }
+
+        String publicKeyString = Base64.getEncoder().encodeToString(publicKey.getEncoded());
+        String privateKeyString = Base64.getEncoder().encodeToString(privateKey.getEncoded());
+
+        user.setPublicKey(publicKeyString);
+        user.setPrivateKey(privateKeyString);
 
         User savedUser = userRepository.save(user);
         return UserMapper.userToDTO(savedUser);
