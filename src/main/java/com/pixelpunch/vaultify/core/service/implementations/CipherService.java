@@ -26,26 +26,54 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<Cipher> getCipherById(Long cipherId) throw Exception {
+    public ResponseEntity<Cipher> getCipherById(Long cipherId) {
         Cipher cipher = cipherRepository.findById(cipherId).orElse(null);
+        if (cipher == null) {
+            return ResponseEntity.notFound().build();
+        }
+        try {
             String privateKeyString = userRepository.findPrivateKeyByUserId(cipher.getOwner().getId());
-    
+            if (privateKeyString == null) {
+                log.error("Private key not found for user {}", cipher.getOwner().getId());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            }
             PrivateKey privateKey = RSAEncryption.getPrivateKeyFromString(privateKeyString);
             byte[] encryptedData = Base64.getDecoder().decode(cipher.getData());
 
             String decryptedData = RSAEncryption.decrypt(encryptedData, privateKey);
             cipher.setData(decryptedData);
-       
+        } catch (IllegalArgumentException e) {
+            log.error("Illegal base64 character error: {}", e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        } catch (Exception e) {
+            log.error("Error decrypting data: {}", e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
         return ResponseEntity.ok().body(cipher);
     }
 
     @Override
-    public ResponseEntity<String> createCipher(CipherDto cipherDto, Long userId) throw Exception {
+    public ResponseEntity<String> createCipher(CipherDto cipherDto, Long userId) {
+     
         User user = userRepository.findUserById(userId);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User with the specified ID not found");
+        }
 
         String publicKeyString = userRepository.findPublicKeyById(userId);
+        if (publicKeyString == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("User's public key not found");
+        }
+
+        try {
             log.info("User ID: {}", userId);
             log.info("Encrypted Account Data: {}", cipherDto.getData());
+
+            if (cipherDto.getData() == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cipher data cannot be null");
+            }
 
             PublicKey publicKey = RSAEncryption.getPublicKeyFromString(publicKeyString);
             log.info("Public Key: {}", publicKeyString);
@@ -56,7 +84,9 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
             byte[] encryptedBytes = RSAEncryption.encrypt(cipherDto.getData(), publicKey);
 
             String encryptedData = Base64.getEncoder().encodeToString(encryptedBytes);
-         
+            if (encryptedData.length() > 255) {
+                encryptedData = encryptedData.substring(0, 255);
+            }
             log.info("Encrypted Data: {}", encryptedData);
 
             cipher.setOwner(user);
@@ -67,12 +97,20 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
             cipherRepository.save(cipher);
 
             return ResponseEntity.status(HttpStatus.CREATED).body("Cipher successfully created");
+        } catch (Exception e) {
+            log.error("Error creating cipher", e);
+            log.error("Error stack trace: ", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating cipher");
+        }
     }
 
     @Override
-    public ResponseEntity<CipherDto> updateCipher(Long cipherId, CipherDto updatedCipherDTO) throw Exception {
+    public ResponseEntity<CipherDto> updateCipher(Long cipherId, CipherDto updatedCipherDTO) {
         Cipher existingCipher = cipherRepository.findById(cipherId).orElse(null);
-      
+        if (existingCipher == null) {
+            return ResponseEntity.notFound().build();
+        }
+        try {
             Long userId = existingCipher.getOwner().getId();
             String publicKeyString = userRepository.findPublicKeyById(userId);
             PublicKey publicKey = RSAEncryption.getPublicKeyFromString(publicKeyString);
@@ -89,13 +127,18 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
 
             CipherDto updatedCipherDto = CipherMapper.cipherToDTO(existingCipher);
             return ResponseEntity.ok().body(updatedCipherDto);
-    
+        } catch (Exception e) {
+            log.error("Error updating cipher", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @Override
-    public ResponseEntity<Void> deleteCipher(Long cipherId) throw Exception {
+    public ResponseEntity<Void> deleteCipher(Long cipherId) {
         Cipher cipher = cipherRepository.findById(cipherId).orElse(null);
-        
+        if (cipher == null) {
+            return ResponseEntity.notFound().build();
+        }
         cipherRepository.delete(cipher);
         return ResponseEntity.noContent().build();
     }
