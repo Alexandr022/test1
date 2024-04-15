@@ -3,6 +3,7 @@ package com.pixelpunch.vaultify.core.service.implementations;
 import com.pixelpunch.vaultify.core.exeption.CipherNotFoundException;
 import com.pixelpunch.vaultify.core.mapper.CipherMapper;
 import com.pixelpunch.vaultify.web.dto.CipherDto;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import com.pixelpunch.vaultify.core.model.Cipher;
 import com.pixelpunch.vaultify.core.model.User;
@@ -32,8 +33,9 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     private final CipherRepository cipherRepository;
     private final UserRepository userRepository;
 
+    @SneakyThrows
     @Override
-    public ResponseEntity<Cipher> getCipherById(Long cipherId) throws Exception {
+    public ResponseEntity<Cipher> getCipherById(Long cipherId) {
         Cipher cipher = cipherRepository.findById(cipherId).orElse(null);
         if (cipher == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
