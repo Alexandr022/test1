@@ -6,6 +6,7 @@ import com.pixelpunch.vaultify.web.dto.CipherDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,16 +30,18 @@ public class CipherController {
         return cipherService.getCipherById(id);
     }
 
+    @SneakyThrows
     @PostMapping("/{userId}")
     public ResponseEntity<String> createCipher(@Valid @RequestBody CipherDto cipherRequestDTO,
-                                               @PathVariable Long userId) throws Exception {
+                                               @PathVariable Long userId)  {
             ResponseEntity<String> response = cipherService.createCipher(cipherRequestDTO, userId);
             return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 
+    @SneakyThrows
     @PutMapping("/{cipherId}")
     public ResponseEntity<CipherDto> updateCipher(@PathVariable Long cipherId,
-                                                  @RequestBody CipherDto updatedCipherDto) throws Exception {
+                                                  @RequestBody CipherDto updatedCipherDto)  {
         return cipherService.updateCipher(cipherId, updatedCipherDto);
     }
 
