@@ -10,12 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InMemoryCache<K, V> {
     private final Map<K, V> cache = new ConcurrentHashMap<>();
 
-    private static final int SIZE = 100;
-
     public void put(K key, V value) {
-        if (cache.size() >= SIZE) {
-            cache.clear();
-        }
         cache.put(key, value);
     }
 
