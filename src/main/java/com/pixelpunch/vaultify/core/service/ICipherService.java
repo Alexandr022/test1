@@ -14,7 +14,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.List;
 
 public interface ICipherService {
-    ResponseEntity<Cipher> getCipherById(Long cipherId) throws Exception;
+    ResponseEntity<Cipher> getCipherById(Long cipherId);
 
     ResponseEntity<String> createCipher(CipherDto cipherDto, Long userId) throws CipherNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException;
 
