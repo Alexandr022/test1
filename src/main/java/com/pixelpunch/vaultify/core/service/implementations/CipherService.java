@@ -1,5 +1,6 @@
 package com.pixelpunch.vaultify.core.service.implementations;
 
+import com.pixelpunch.vaultify.core.exeption.CipherNotFoundException;
 import com.pixelpunch.vaultify.core.mapper.CipherMapper;
 import com.pixelpunch.vaultify.web.dto.CipherDto;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.util.*;
 
 @Slf4j
@@ -28,7 +35,9 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     @Override
     public ResponseEntity<Cipher> getCipherById(Long cipherId) throws Exception {
         Cipher cipher = cipherRepository.findById(cipherId).orElse(null);
-
+        if (cipher == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
             String privateKeyString = userRepository.findPrivateKeyByUserId(cipher.getOwner().getId());
             PrivateKey privateKey = RSAEncryption.getPrivateKeyFromString(privateKeyString);
             byte[] encryptedData = Base64.getDecoder().decode(cipher.getData());
@@ -40,12 +49,11 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     }
 
     @Override
-    public ResponseEntity<String> createCipher(CipherDto cipherDto, Long userId) throws Exception {
+    public ResponseEntity<String> createCipher(CipherDto cipherDto, Long userId) throws CipherNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         User user = userRepository.findUserById(userId);
         String publicKeyString = userRepository.findPublicKeyById(userId);
             log.info("User ID: {}", userId);
             log.info("Encrypted Account Data: {}", cipherDto.getData());
-
 
             PublicKey publicKey = RSAEncryption.getPublicKeyFromString(publicKeyString);
             log.info("Public Key: {}", publicKeyString);
@@ -72,8 +80,11 @@ public class CipherService implements com.pixelpunch.vaultify.core.service.ICiph
     }
 
     @Override
-    public ResponseEntity<CipherDto> updateCipher(Long cipherId, CipherDto updatedCipherDTO) throws Exception {
+    public ResponseEntity<CipherDto> updateCipher(Long cipherId, CipherDto updatedCipherDTO) throws CipherNotFoundException, NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         Cipher existingCipher = cipherRepository.findById(cipherId).orElse(null);
+        if (existingCipher == null) {
+            throw new CipherNotFoundException("Cipher not found");
+        }
             Long userId = existingCipher.getOwner().getId();
             String publicKeyString = userRepository.findPublicKeyById(userId);
             PublicKey publicKey = RSAEncryption.getPublicKeyFromString(publicKeyString);
