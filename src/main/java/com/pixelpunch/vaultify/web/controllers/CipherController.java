@@ -25,7 +25,7 @@ public class CipherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cipher> getCipherById(@PathVariable Long id) throws Exception {
+    public ResponseEntity<Cipher> getCipherById(@PathVariable Long id) {
         return cipherService.getCipherById(id);
     }
 
